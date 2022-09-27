@@ -74,7 +74,7 @@ $(function() {
         url: '/tweetinfo',
         method: 'POST',
         contentType: 'application/json',
-        data: JSON.stringify({id: tweetid, text: tweetText}),
+        data: JSON.stringify({user: {id: tweetid}, text: tweetText}),
         success: function(response) {
           console.log(response)
           createInput.val('')

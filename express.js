@@ -51,11 +51,11 @@ app.get('/searchinfo', function(req, res){
 //Posts created tweets
 app.post('/tweetinfo', function(req, res) {
   //TODO: create a tweet.
-  var tweetID = req.body.id
+  var tweetID = req.body.user.id
   var tweetText = req.body.text
 
   tweetinfo.push ({
-    id: tweetID, // Fix this later
+    user: {id : tweetID}, // Fix this later
     text: tweetText
   })
 
