@@ -35,7 +35,7 @@ $(function() {
           response.tweetinfo.forEach(function(tweetinfo) {
             tbodyEl.append('\
                     <tr>\
-                    <td><input type="text" class="name" value="' + tweetinfo.user.id + '"></td>\
+                    <td><input type="text" class="name" value="' + tweetinfo.id + '"></td>\
                     <td><input type="text" class="name" value="' + tweetinfo.text + '"></td>\
                     <td><input type="text" class="name" value="' + tweetinfo.created_at + '"></td>\
                     </tr>\
@@ -45,13 +45,13 @@ $(function() {
        })
    })
 
-   //Get searched tweets
+   //Get recently searched tweets
    $('#get-searched-tweets').on('click', function() {
        //TODO: get a searched tweet(s) & display it
        $.ajax({
         url: '/searchinfo',
         method: 'GET',
-        contentType: 'application.json',
+        contentType: 'application/json',
         success: function(response) {
           // FINISH ME
         }
@@ -86,10 +86,30 @@ $(function() {
    //Create searched tweets
  $('#search-form').on('submit', function(event){
    event.preventDefault();
-   var userID = $('#search-input');
+   var searchInput = $('#search-input');
+   var userID = searchInput.val();
    
    //TODO: search a tweet and display it.
-
+   $.ajax({
+    url: '/searchinfo',
+    method: 'POST',
+    contentType: 'application/json',
+    success: function(response) {
+      var tbodyEl = $('#searchbody')
+          tbodyEl.html('')
+          for(var i = 0; i < response.tweetinfo.length; i++) {
+            if(userID == i) {
+              tbodyEl.append('\
+                    <tr>\
+                    <td><input type="text" class="name" value="' + response.tweetinfo[i].id + '"></td>\
+                    <td><input type="text" class="name" value="' + response.tweetinfo[i].text + '"></td>\
+                    <td><input type="text" class="name" value="' + response.tweetinfo[i].created_at + '"></td>\
+                    </tr>\
+              ')
+            }
+          }
+      }
+   })
  })
 
  //UPDATE/PUT
@@ -118,13 +138,21 @@ $(function() {
    })
  })
 
-
  //DELETE
  $("#delete-form").on('submit', function() {
-   var id = $('#delete-input')
    event.preventDefault();
+   var deleteInput = $('#delete-input')
+   var tweetID = deleteInput.val();
 
    //TODO: delete a tweet
-
+   $.ajax({
+    url: '/tweetinfo/' + tweetID,
+    method: 'DELETE',
+    contentType: 'application/json',
+    success: function(response) {
+      console.log(response)
+      $('#get-button').click()
+    }
+   })
  })
 })
