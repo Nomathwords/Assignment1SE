@@ -12,6 +12,7 @@ const { response } = require('express');
 
 //global variable for tweet data
 var tweetinfo = []
+var recentlySearched = []
 
 //load the input file
 fs.readFile('favs.json', 'utf8', function readFileCallback(err, data){
@@ -142,7 +143,7 @@ app.get('/tweetinfo', function(req, res) {
 //Shows searched tweets
 app.get('/searchinfo', function(req, res){
   //TODO: send searched tweets
-  res.send({tweetinfo})
+  res.send({recentlySearched})
 });
 
 //Post functions
@@ -152,12 +153,12 @@ app.post('/tweetinfo', function(req, res) {
   var tweetID = req.body.user.id
   var tweetText = req.body.text
   var today = new Date()
-  var dateTime
   var day
   var dd
   var mm
   var yyyy
   var time
+  var dateTime
   
  day = getCurrentDay()
  dd = String(today.getDate()).padStart(2, '0')
@@ -178,6 +179,27 @@ app.post('/tweetinfo', function(req, res) {
 //Posts searched tweets
 app.post('/searchinfo', function(req, res) {
   //TODO: search a tweet
+  var tweetIndex = req.body.id
+  var tweetText
+  var tweetID
+  var createdAt
+
+  for(var i = 0; i < tweetinfo.length; i++) {
+    if(tweetIndex == i) {
+      tweetID = tweetinfo[i].id
+      tweetText = tweetinfo[i].text
+      createdAt = tweetinfo[i].created_at
+
+      recentlySearched.unshift ({
+        id: tweetID,
+        text: tweetText,
+        created_at: createdAt
+      })
+
+      break
+    }
+  }
+
   res.send({tweetinfo})
 });
 

@@ -53,7 +53,17 @@ $(function() {
         method: 'GET',
         contentType: 'application/json',
         success: function(response) {
-          // FINISH ME
+          var tbodyEl = $('#searchbody')
+          tbodyEl.html('')
+          for(var i = 0; i < response.recentlySearched.length; i++) {
+              tbodyEl.append('\
+                    <tr>\
+                    <td><input type="text" class="name" value="' + response.recentlySearched[i].id + '"></td>\
+                    <td><input type="text" class="name" value="' + response.recentlySearched[i].text + '"></td>\
+                    <td><input type="text" class="name" value="' + response.recentlySearched[i].created_at + '"></td>\
+                    </tr>\
+              ')
+          }
         }
        })
    })
@@ -61,9 +71,7 @@ $(function() {
  //CREATE
  $('#create-form').on('submit', function(event){
        event.preventDefault();
-
        const createInput = $('#create-input');
-
        var inputString = createInput.val();
        const parsedStrings = inputString.split(';');
        var tweetid = parsedStrings[0];
@@ -87,18 +95,19 @@ $(function() {
  $('#search-form').on('submit', function(event){
    event.preventDefault();
    var searchInput = $('#search-input');
-   var userID = searchInput.val();
+   var ID = searchInput.val();
    
    //TODO: search a tweet and display it.
    $.ajax({
     url: '/searchinfo',
     method: 'POST',
     contentType: 'application/json',
+    data: JSON.stringify({id: ID}),
     success: function(response) {
       var tbodyEl = $('#searchbody')
           tbodyEl.html('')
           for(var i = 0; i < response.tweetinfo.length; i++) {
-            if(userID == i) {
+            if(ID == i) {
               tbodyEl.append('\
                     <tr>\
                     <td><input type="text" class="name" value="' + response.tweetinfo[i].id + '"></td>\
