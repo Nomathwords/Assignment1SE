@@ -12,7 +12,7 @@ $(function() {
              response.tweetinfo.forEach(function(tweetinfo) {
                tbodyEl.append('\
                        <tr>\
-                       <td><input type="text" class="name" value="' + tweetinfo.user.id + '"></td>\
+                       <td><input type="text" class="name" value="' + tweetinfo.user.id_str + '"></td>\
                        <td><input type="text" class="name" value="' + tweetinfo.user.screen_name + '"></td>\
                        <td><input type="text" class="name" value="' + tweetinfo.user.name + '"></td>\
                        </tr>\
@@ -35,7 +35,7 @@ $(function() {
           response.tweetinfo.forEach(function(tweetinfo) {
             tbodyEl.append('\
                     <tr>\
-                    <td><input type="text" class="name" value="' + tweetinfo.id + '"></td>\
+                    <td><input type="text" class="name" value="' + tweetinfo.id_str + '"></td>\
                     <td><input type="text" class="name" value="' + tweetinfo.text + '"></td>\
                     <td><input type="text" class="name" value="' + tweetinfo.created_at + '"></td>\
                     </tr>\
@@ -58,7 +58,7 @@ $(function() {
           for(var i = 0; i < response.recentlySearched.length; i++) {
               tbodyEl.append('\
                     <tr>\
-                    <td><input type="text" class="name" value="' + response.recentlySearched[i].id + '"></td>\
+                    <td><input type="text" class="name" value="' + response.recentlySearched[i].id_str + '"></td>\
                     <td><input type="text" class="name" value="' + response.recentlySearched[i].text + '"></td>\
                     <td><input type="text" class="name" value="' + response.recentlySearched[i].created_at + '"></td>\
                     </tr>\
@@ -107,7 +107,7 @@ $(function() {
       var tbodyEl = $('#searchbody')
           tbodyEl.html('')
           for(var i = 0; i < response.tweetinfo.length; i++) {
-            if(ID == i) {
+            if(ID == response.tweetinfo[i].id_str) {
               tbodyEl.append('\
                     <tr>\
                     <td><input type="text" class="name" value="' + response.tweetinfo[i].id + '"></td>\

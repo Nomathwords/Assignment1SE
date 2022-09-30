@@ -28,7 +28,7 @@ fs.readFile('favs.json', 'utf8', function readFileCallback(err, data){
 
 // Pad the given time with 0's if needed. Ex: 10-23-4 -> 10-23-04
 function pad(num) {
-  return ("0"+num).slice(-2);
+  return ("0" + num).slice(-2);
 }
 
 // Function to get the current day, Sunday - Saturday, and return the abbreviated name
@@ -168,7 +168,7 @@ app.post('/tweetinfo', function(req, res) {
  dateTime = day + " " + mm + " " + dd + " " + time + " " + yyyy
 
   tweetinfo.push ({
-    id: tweetID,
+    id_str: tweetID,
     text: tweetText,
     created_at: dateTime
   })
@@ -179,19 +179,20 @@ app.post('/tweetinfo', function(req, res) {
 //Posts searched tweets
 app.post('/searchinfo', function(req, res) {
   //TODO: search a tweet
-  var tweetIndex = req.body.id
+  var tweetID = req.body.id
   var tweetText
   var tweetID
   var createdAt
 
   for(var i = 0; i < tweetinfo.length; i++) {
-    if(tweetIndex == i) {
-      tweetID = tweetinfo[i].id
+    if(tweetID == tweetinfo[i].id_str) {
+      tweetID = tweetinfo[i].id_str
       tweetText = tweetinfo[i].text
       createdAt = tweetinfo[i].created_at
 
       recentlySearched.unshift ({
         id: tweetID,
+        id_str: tweetID,
         text: tweetText,
         created_at: createdAt
       })
@@ -223,10 +224,10 @@ app.put('/tweets/:nm', function(req, res) {
 //Delete 
 app.delete('/tweetinfo/:tweetid', function(req, res) {
   //TODO: delete a tweet
-  var tweetID = req.params.tweetid
+  var elementID = Number(req.params.tweetid)
 
   for(var i = 0; i < tweetinfo.length; i++) {
-    if(tweetinfo[i].id == tweetID) {
+    if(elementID == tweetinfo[i].id) {
       tweetinfo.splice(i, 1)
       res.send("Successfully deleted tweet!")
     }
