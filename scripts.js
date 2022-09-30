@@ -2,6 +2,7 @@ $(function() {
   //Get 
   $('#get-button').on('click', function() {
        //TODO: get all users' IDs & display it
+       event.preventDefault();
        $.ajax({
          url: '/tweets',
          method: 'GET',
@@ -25,6 +26,7 @@ $(function() {
    //Get tweets
    $('#get-tweets-button').on('click', function() {
        //TODO: get tweet info and display it
+       event.preventDefault();
        $.ajax({ 
         url: '/tweetinfo',
         method: 'GET',
@@ -48,6 +50,7 @@ $(function() {
    //Get recently searched tweets
    $('#get-searched-tweets').on('click', function() {
        //TODO: get a searched tweet(s) & display it
+       event.preventDefault();
        $.ajax({
         url: '/searchinfo',
         method: 'GET',
@@ -110,7 +113,7 @@ $(function() {
             if(ID == response.tweetinfo[i].id_str) {
               tbodyEl.append('\
                     <tr>\
-                    <td><input type="text" class="name" value="' + response.tweetinfo[i].id + '"></td>\
+                    <td><input type="text" class="name" value="' + response.tweetinfo[i].id_str + '"></td>\
                     <td><input type="text" class="name" value="' + response.tweetinfo[i].text + '"></td>\
                     <td><input type="text" class="name" value="' + response.tweetinfo[i].created_at + '"></td>\
                     </tr>\

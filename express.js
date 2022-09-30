@@ -212,7 +212,7 @@ app.put('/tweets/:nm', function(req, res) {
   var newName = req.body.name
 
   for(var i = 0; i < tweetinfo.length; i++) {
-    if(!found && tweetinfo[i].user.screen_name == name) {
+    if(!found && tweetinfo[i].user.name == name) {
       tweetinfo[i].user.screen_name = newName
       found = true
     }
