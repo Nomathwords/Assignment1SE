@@ -155,7 +155,7 @@ app.get('/searchinfo', function(req, res){
 // Post functions
 // Posts created tweets
 app.post('/tweetinfo', function(req, res) {
-  var tweetID = req.body.tweetid // The tweet ID
+  var tweetID = req.body.tweetid.toString() // The tweet ID
   var tweetText = req.body.tweetText // The tweet text
   var today = new Date() // New date function to make a created_at string
   var day // The day the tweet was created, abbreviated. Ex: Sun, Mon, etc.
@@ -235,11 +235,11 @@ app.put('/tweets/:nm', function(req, res) {
 
 // Delete a tweet
 app.delete('/tweetinfo/:tweetid', function(req, res) {
-  var tweetID = Number(req.params.tweetid) // The ID of the tweet to be deleted
+  var tweetID = req.params.tweetid.toString() // The ID of the tweet to be deleted
 
   // Loop through the tweetinfo array. If the ID's match, delete that element
   for(var i = 0; i < tweetinfo.length; i++) {
-    if(tweetID == tweetinfo[i].id) {
+    if(tweetID == tweetinfo[i].id_str) {
       tweetinfo.splice(i, 1)
       res.send("Successfully deleted tweet!")
       break

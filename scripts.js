@@ -15,8 +15,8 @@ $(function() {
              response.tweetinfo.forEach(function(tweetinfo) {
                tbodyEl.append('\
                        <tr>\
-                       <td><input type="text" class="name" value="' 
-                       + tweetinfo.user.id_str + '"></td>\
+                       <td><input type="text" class="name" value="'
+                      + tweetinfo.user.id + '"></td>\
                        \
                        <td><input type="text" class="name" value="' 
                        + tweetinfo.user.screen_name + '"></td>\
@@ -92,7 +92,7 @@ $(function() {
        })
    })
 
- // CREATE
+  // CREATE
  $('#create-form').on('submit', function(event){
        event.preventDefault();
        const createInput = $('#create-input');
@@ -111,7 +111,7 @@ $(function() {
         success: function(response) {
           console.log(response)
           createInput.val('')
-          $('#get-button').click()
+          $('#get-tweets-button').click()
         }
     })
  })
@@ -195,7 +195,8 @@ $(function() {
     contentType: 'application/json',
     success: function(response) {
       console.log(response)
-      $('#get-button').click()
+      deleteInput.val('')
+      $('#get-tweets-button').click()
     }
    })
  })
