@@ -201,3 +201,7 @@ $(function() {
    })
  })
 })
+
+function test_print() {
+  console.log("Test code")
+}
